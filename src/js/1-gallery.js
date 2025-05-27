@@ -103,7 +103,6 @@ container.addEventListener(`click`, event => {
 
 import SimpleLightbox from 'simplelightbox';
 
-// Імпортуємо стилі бібліотеки
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const lightbox = new SimpleLightbox('.gallery a', {
