@@ -63,50 +63,32 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
-
-const container = document.querySelector(`.gallery`);
-
-function listImg(images) {
-  return images
-    .map(
-      img =>
-        `<li class="gallery-item">
-        <a class="gallery-link" href="${img.original}">
-          <img
-            class="gallery-image"
-            src="${img.preview}"
-            data-source="${img.original}"
-            alt="${img.description}"
-          />
-        </a>
-      </li>
-    `
-    )
-    .join(` `);
-}
-container.insertAdjacentHTML(`afterbegin`, listImg(images));
-
-container.addEventListener(`click`, event => {
-  event.preventDefault();
-  if (!event.target.classList.contains('gallery-image')) {
-    return;
-  }
-
-  //   const largeImg = event.target.dataset.source;
-
-  //   const instance = basicLightbox.create(`
-  //           <img src="${largeImg}">
-  //       `);
-
-  //   instance.show();
-});
-
 import SimpleLightbox from 'simplelightbox';
-
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const lightbox = new SimpleLightbox('.gallery a', {
+const galleryContainer = document.querySelector('.gallery');
+
+function createGalleryMarkup(images) {
+  return images
+    .map(
+      ({ preview, original, description }) => `
+    <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}"
+          alt="${description}"
+        />
+      </a>
+    </li>`
+    )
+    .join('');
+}
+
+galleryContainer.innerHTML = createGalleryMarkup(images);
+
+new SimpleLightbox('.gallery a', {
+  captions: true,
   captionsData: 'alt',
   captionDelay: 300,
-  captions: true,
 });
